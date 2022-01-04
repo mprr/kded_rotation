@@ -12,13 +12,12 @@ You'll most likely need `qt5-qtbase-devel`, `cmake-utils`, `extra-cmake-modules`
 
 `orientation-helper` is where the actual screen rotation happens. This is achieved by calling `xrandr --rotation $value`, which works in most circumstances. You can adjust `orientation-helper` to fit your setup and reinstall to apply.
 
-To reduce or increase the timer before the rotation happens, adjust `timer.start(25);` in `screenrotator.cpp`:
-
-```cpp
-void ScreenRotator::startProgress() {
-	if (progress == -1) {
-		timer.start(25);
-		progress = 0;
-	}
-}
+Configuration is read fresh prior to each rotation, it is located in ~/.config/kded_rotationrc file, ini format:
 ```
+[General]
+delay-duration=6
+locked=true
+enabled=true
+
+```
+allowing for granular control over rotation, with ```delay-totation``` configures timer to wait before performing rotation, bool flags ```locked``` and ```enabled``` allow for tandem of control over rotation (ex.: user locks rotation, enabled flag can be set/updated from a tablet-mode hardware sensor like 2-in-1 laptops).

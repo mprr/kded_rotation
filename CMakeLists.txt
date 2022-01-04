@@ -18,6 +18,7 @@ include(FeatureSummary)
 include(CheckIncludeFiles)
 
 find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
+    Gui
     DBus
     Sensors
 )
@@ -27,6 +28,8 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     CoreAddons
     DBusAddons
 )
+
+find_package(KF5Config ${KF_DEP_VERSION} REQUIRED)
 
 find_package(KDED ${KF5_MIN_VERSION} CONFIG REQUIRED)
 
@@ -46,7 +49,10 @@ add_library(kded_rotation MODULE
 target_link_libraries(kded_rotation
 		      KF5::CoreAddons
 		      KF5::DBusAddons
-                      Qt5::Sensors
+              Qt5::Sensors
+              Qt5::Gui
+              KF5::ConfigCore
+              KF5::ConfigGui
 )
 
 install(FILES kded_rotation.desktop
